@@ -51,6 +51,7 @@ refseq %>%
 jj <- refseq %>%
   mutate(rna_name = str_extract(ftp_path, "[^//]+$")) %>%
   mutate(rna_path = paste0(ftp_path, "/", rna_name, "_rna_from_genomic.fna.gz")) %>%
+  mutate(rna_path = str_replace(rna_path, "^ftp:", "rsync:")) %>%
   select(assembly_accession, rna_path) %>%
   write_tsv("accession_ftp_path.tsv", col_names = F) #197,413 rows
 ```
