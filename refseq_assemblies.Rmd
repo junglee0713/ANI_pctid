@@ -26,7 +26,7 @@ refseq_factors <- c(
 assembly_level_levels <- c(
   "Complete Genome", "Chromosome", "Scaffold", "Contig")
 refseq <- read_tsv(
-  "refseq_assembly_summary.txt",
+  "data/no_header_assembly_summary.txt",
   col_types = refseq_cols,
   quote = "") %>%
   mutate(across(all_of(refseq_factors), factor)) %>%
@@ -45,6 +45,12 @@ refseq %>%
   geom_col(aes(x=species_name, y=n, fill=assembly_level)) +
   coord_flip() +
   theme_bw()
+```
+
+```{r, eval = F}
+refseq %>%
+  select(assembly_accession, ftp_path) %>%
+  write_tsv("accession_ftp_path.tsv", col_names = F) #197,413 rows
 ```
 
 
